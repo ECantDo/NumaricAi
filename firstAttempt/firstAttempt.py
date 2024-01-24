@@ -7,8 +7,8 @@ import nodeGraph
 
 class CantDoAI:
     def __init__(self):
-        self.biases = CantDoAI.get_values("biases.arr")
-        self.weights = CantDoAI.get_values("weights.arr")
+        self.biases = CantDoAI.get_values("biases.cfg")
+        self.weights = CantDoAI.get_values("weights.cfg")
         self.layers = [np.array([0] * len(self.weights[0]))]
         for bias_layer in self.biases:
             self.layers.append([0] * len(bias_layer))
