@@ -17,7 +17,6 @@ def reset_biases(layer_widths: list, r: int, seed: int = None):
             continue
         biases.append([random.randint(-r, r) for i in range(layer_bias_count)])
 
-    # print(biases)
     open("biases.arr", 'w').write(str(biases))
     return biases
     pass
@@ -42,7 +41,6 @@ def reset_weights(layer_widths: list, r: int, seed: int = None):
             pass
         pass
 
-    # print(weights)
     open("weights.arr", 'w').write(str(weights))
     return weights
     pass
@@ -54,5 +52,4 @@ def reset(layer_widths: list, r: int = 4, seed: int = 0):
     pass
 
 
-# print(reset_weights([3] * 2, 8, 0))
 # reset([3] * 2)
