@@ -3,7 +3,7 @@ import numpy
 import numpy as np
 
 
-def sigmoid(x, slope: float = 1) -> float:
+def sigmoid(x, slope: float = 1):
     """
     Preforms the sigmoid function on some input value
     :param x: The value to preform on.
@@ -27,17 +27,3 @@ def sigmoid(x, slope: float = 1) -> float:
 
 # print(math.exp(1))
 # print(sigmoid([0, 999, 2]).tolist())
-
-
-class NodeGraph:
-    """
-    The matrix for the nural network
-    """
-
-    def __init__(self):
-        self.weights = None
-        self.biases = None
-        self.activations = None
-        pass
-
-    pass
