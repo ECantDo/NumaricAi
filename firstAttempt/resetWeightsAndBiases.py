@@ -52,4 +52,4 @@ def reset(layer_widths: list, r: int = 4, seed: int = 0):
     pass
 
 
-# reset([3] * 2)
+# reset([784, 11])
