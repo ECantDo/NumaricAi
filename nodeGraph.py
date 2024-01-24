@@ -26,7 +26,7 @@ def sigmoid(x, slope: float = 1) -> float:
 
 
 # print(math.exp(1))
-print(sigmoid([0, 999, 2]).tolist())
+# print(sigmoid([0, 999, 2]).tolist())
 
 
 class NodeGraph:
