@@ -28,6 +28,9 @@ class MnistDataContainer:
         plt.show()
         pass
 
+    def size(self):
+        return len(self.mnist_data)
+
     def get_number(self, idx: int):
         """
         Gets the data from the mnist data at a particular index.
