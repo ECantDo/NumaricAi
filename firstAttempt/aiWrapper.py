@@ -1,5 +1,5 @@
 import getNumbers
-import firstAttempt
+import firstAttemptAI
 import numpy as np
 
 output_names = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Nan")
@@ -21,7 +21,7 @@ def format_output(output_data: list):
 
 def main():
     small_tester_data_set = getNumbers.MnistDataContainer("mnist_train - Copy.csv")
-    ai = firstAttempt.CantDoAI()
+    ai = firstAttemptAI.CantDoAI()
 
     values = small_tester_data_set.get_numberf(1)
     print(ai.think(values))
