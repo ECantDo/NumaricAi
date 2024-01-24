@@ -47,10 +47,11 @@ def reset_weights(layer_widths: list, r: int, seed: int = None):
 
 
 def reset(layer_widths: list, r: int = 4, seed: int = 0):
-    print(reset_biases(layer_widths[1:], r, seed))
+    print(reset_biases(layer_widths[1:], 0, seed))
     print(reset_weights(layer_widths, r, seed + 1))
     pass
 
 
-reset([784, 11])
-# reset([4, 3])
+if __name__ == "__main__":
+    reset([784, 11])
+    # reset([4, 3])
