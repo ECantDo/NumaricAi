@@ -1,23 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-def make_image(mnist_data: list, image_width: int = 28, image_height: int = 28):
-    """
-    Makes and displays the image of a given case, for the user to see -> this is not for the AI.
-    From the MNIST database, each image is a 28*28 number, it is assumed that the image is from this database.
-    :return: None
-    """
-    image_array = np.array(mnist_data[1:]).reshape(28, 28)
-
-    # Display the grayscale image
-    plt.axis(False)
-    plt.imshow(image_array, cmap='gray')
-    plt.title(f'Number {mnist_data[0]}')
-    plt.show()
-    pass
-
-
 root_folder_location = "E:/MNIST (Labeled numbers)/MNIST_CSV/"
 
 
@@ -27,6 +10,22 @@ class MnistDataContainer:
         # Gets the data for a MNIST number from a csv file representing a gray-scale image.
         self.mnist_data = [list(map(int, line.strip().split(','))) for line in open(self.file_location, 'r') if
                            line.strip() != '']
+        pass
+
+    @staticmethod
+    def make_image(mnist_data: list, image_width: int = 28, image_height: int = 28):
+        """
+        Makes and displays the image of a given case, for the user to see -> this is not for the AI.
+        From the MNIST database, each image is a 28*28 number, it is assumed that the image is from this database.
+        :return: None
+        """
+        image_array = np.array(mnist_data[1:]).reshape(28, 28)
+
+        # Display the grayscale image
+        plt.axis(False)
+        plt.imshow(image_array, cmap='gray')
+        plt.title(f'Number {mnist_data[0]}')
+        plt.show()
         pass
 
     def get_number(self, idx: int):
@@ -50,12 +49,11 @@ class MnistDataContainer:
         number = self.get_number(idx)
         if number is None:
             return False
-        make_image(number)
+        MnistDataContainer.make_image(number)
         return True
         pass
 
     pass
-
 
 # program_test = MnistDataContainer("mnist_train - Copy.csv")
 # print(program_test.show_image_at_index(-1))
