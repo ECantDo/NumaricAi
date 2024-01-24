@@ -6,4 +6,6 @@ This is the development of making an AI that works with the MNIST data base for 
 ## **Disclaimer**
 This is my first attempt(s) at developing an AI, so it is almost guaranteed to be a work in progress. I appreciate your understanding as I learn and improve.
 
+---
+
 When I initially ran the AI on some random weights and biases, I was pleasently surprised to find that the first test case worked decently! After testing it on the rest of the smaller sub-test set that quickly dissapeared, as it should have, thus restoring balence to the universe.
