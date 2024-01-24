@@ -57,4 +57,9 @@ class CantDoAI:
             self.multiply_layer(layer)
         pass
 
+    def think(self, input_values: list):  # EXPAND ON THIS MORE
+        self.set_intput(input_values)
+        self.multiply()
+        pass
+
     pass
