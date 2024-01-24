@@ -48,6 +48,11 @@ class CantDoAI:
 
         pass
 
+    def multiply(self):
+        for layer in range(len(self.biases)):
+            self.multiply_layer(layer)
+        pass
+
     pass
 
 
