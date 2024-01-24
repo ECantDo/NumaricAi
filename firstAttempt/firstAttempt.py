@@ -33,6 +33,10 @@ class CantDoAI:
             self.layers[0].append(0)
         pass
 
+    def get_output(self):
+        return self.layers[-1]
+        pass
+
     def multiply_layer(self, layer_idx: int):
         """
 
@@ -54,14 +58,3 @@ class CantDoAI:
         pass
 
     pass
-
-
-
-
-ai = CantDoAI()
-# ai.set_intput([.0117647059, .0705882353, .0705882353, .0705882353])
-# ai.print_bwl()
-# ai.multiply_layer(0)
-# ai.print_bwl()
-
-# matrix_mult_example()

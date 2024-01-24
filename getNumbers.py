@@ -69,11 +69,3 @@ class MnistDataContainer:
         pass
 
     pass
-
-
-# program_test = MnistDataContainer("mnist_train - Copy.csv")
-# print(program_test.show_image_at_index(-1))
-#
-# print(program_test.get_number(0))
-# print(program_test.get_numberf(0))
-# print(program_test.get_number(0))
