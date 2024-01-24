@@ -36,7 +36,22 @@ class MnistDataContainer:
         """
         try:
             return self.mnist_data[idx]
-        except IndexError as ie:
+        except IndexError:
+            return None
+        pass
+
+    def get_numberf(self, idx: int):
+        """
+        Gets the data from the mnist data at a particular index as a float.
+        :param idx: The index to get the data from.
+        :return: Returns a list of floats, or None if the index does not exist.
+        """
+        try:
+            number = self.mnist_data[idx][0]
+            div = np.divide(self.mnist_data[idx], 255)
+            div[0] = number
+            return div
+        except IndexError:
             return None
         pass
 
@@ -55,5 +70,10 @@ class MnistDataContainer:
 
     pass
 
+
 # program_test = MnistDataContainer("mnist_train - Copy.csv")
 # print(program_test.show_image_at_index(-1))
+#
+# print(program_test.get_number(0))
+# print(program_test.get_numberf(0))
+# print(program_test.get_number(0))
