@@ -2,7 +2,7 @@ import getNumbers
 import numpy as np
 import ast
 
-import nodeGraph
+import basicFunctions
 
 
 class CantDoAI:
@@ -54,7 +54,7 @@ class CantDoAI:
         """
         if layer_idx < 0 and layer_idx < len(self.__biases):
             return
-        self.__layers[layer_idx + 1] = (nodeGraph.sigmoid(np.add(
+        self.__layers[layer_idx + 1] = (basicFunctions.sigmoid(np.add(
             np.dot(np.array(self.__weights[layer_idx]), np.array(self.__layers[layer_idx])),
             self.__biases[layer_idx])).tolist())
 
