@@ -23,31 +23,11 @@ def main():
     small_tester_data_set = getNumbers.MnistDataContainer("mnist_train - Copy.csv")
     ai = firstAttempt.CantDoAI()
 
-    wrong_idxs = []
-    right_idxs = []
-    for i in range(small_tester_data_set.size()):
-        values = small_tester_data_set.get_numberf(i)
-        ai.think(values[1:])
-        output, top_value = format_output(ai.get_output())
-        if int(values[0]) != top_value:
-            wrong_idxs.append([i, int(values[0]), top_value])
-        else:
-            right_idxs.append([i, int(values[0]), top_value, output])
-        # print(output)
-        # print(f"Actual number: {int(values[i])}, Thought: {top_value}")
+    values = small_tester_data_set.get_numberf(1)
+    print(ai.think(values))
+    print(ai.get_output())
 
-    print(f"Got Wrong:")
-    for wrong_idx in wrong_idxs:
-        print(f"Idx: {wrong_idx[0]}\t| Was: {wrong_idx[1]} | Thought: {output_names[wrong_idx[2]]}")
-        # small_tester_data_set.show_image_at_index(wrong_idx)
-        pass
-
-    print(f"\nGot Right:")
-    for right_idx in right_idxs:
-        print(
-            f"Idx: {right_idx[0]}\t| Was: {right_idx[1]} | Thought: {output_names[right_idx[2]]} | Confidence: {right_idx[3]}")
-        # small_tester_data_set.show_image_at_index(wrong_idx)
-        pass
+    small_tester_data_set.make_image(small_tester_data_set.get_number(1))
 
     pass
 
