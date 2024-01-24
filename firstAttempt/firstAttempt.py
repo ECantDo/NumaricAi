@@ -9,7 +9,7 @@ class CantDoAI:
     def __init__(self):
         self.biases = CantDoAI.get_values("biases.cfg")
         self.weights = CantDoAI.get_values("weights.cfg")
-        self.layers = [np.array([0] * len(self.weights[0]))]
+        self.layers = [np.array([0] * len(self.weights[0][0]))]
         for bias_layer in self.biases:
             self.layers.append([0] * len(bias_layer))
         pass
@@ -46,8 +46,11 @@ class CantDoAI:
         if layer_idx < 0 and layer_idx < len(self.biases):
             return
 
+        # print(np.array(self.weights[layer_idx]))
+        # print(np.array(self.layers[layer_idx]))
+
         self.layers[layer_idx + 1] = (nodeGraph.sigmoid(np.add(
-            np.dot(np.array(self.weights[layer_idx]).T, np.array(self.layers[layer_idx])),
+            np.dot(np.array(self.weights[layer_idx]), np.array(self.layers[layer_idx])),
             self.biases[layer_idx])).tolist())
 
         pass
