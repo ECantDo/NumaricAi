@@ -1,3 +1,4 @@
+import math
 import numpy
 
 
@@ -9,8 +10,22 @@ def sigmoid(x: float, slope: float = 1) -> float:
     :return: A value between 0 and 1.
     """
     slope = abs(slope)
-    return 1 / (1 + numpy.e ** (-slope * x))
+    try:
+        result = 1 / (1 + math.exp(-slope * x))
+
+    except OverflowError as ofe:
+        if x > 0:
+            result = 1.0
+        else:
+            result = 0.0
+        # print(ofe)
+
+    return result
     pass
+
+
+# print(math.exp(1))
+# print(sigmoid(709, 0.01))
 
 
 class NodeGraph:
