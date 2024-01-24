@@ -71,20 +71,19 @@ class CantDoAI:
             self.multiply_layer(layer)
         pass
 
-    def think(self, input_values: list[list]) -> list:  # EXPAND ON THIS MORE
+    def think(self, input_values: list) -> list:  # EXPAND ON THIS MORE
         """
         Makes the AI think about a series of inputs, then contemplates how well it did in regard to its thinking.
         :param input_values: Expects a list of input values, with the first input value being the index of the
         expected result
         :return: Returns the cost of the inputs
         """
-        if input_values[0] is not list:
-            input_values = [input_values]
 
-        for input_layer in input_values:
-            self.set_intput(input_layer)
-            self.multiply()
-        return []
+        self.set_intput(input_values[1:])
+        self.multiply()
+
+        cost = (list((lambda idx, x: (x - (1 if input_values[0] == idx else 0)) ** 2)(idx, x) for idx, x in
+                     enumerate(self.get_output())))
+        return cost
+
         pass
-
-    pass
