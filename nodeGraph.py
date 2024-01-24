@@ -1,8 +1,9 @@
 import math
 import numpy
+import numpy as np
 
 
-def sigmoid(x: float, slope: float = 1) -> float:
+def sigmoid(x, slope: float = 1) -> float:
     """
     Preforms the sigmoid function on some input value
     :param x: The value to preform on.
@@ -11,7 +12,7 @@ def sigmoid(x: float, slope: float = 1) -> float:
     """
     slope = abs(slope)
     try:
-        result = 1 / (1 + math.exp(-slope * x))
+        result = 1 / (1 + np.exp(-np.multiply(x, slope)))
 
     except OverflowError as ofe:
         if x > 0:
@@ -25,7 +26,7 @@ def sigmoid(x: float, slope: float = 1) -> float:
 
 
 # print(math.exp(1))
-# print(sigmoid(709, 0.01))
+print(sigmoid([0, 999, 2]).tolist())
 
 
 class NodeGraph:
