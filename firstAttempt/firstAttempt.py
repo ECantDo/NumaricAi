@@ -56,28 +56,6 @@ class CantDoAI:
     pass
 
 
-def matrix_mult_example():
-    matrix_A = np.array([[1, 2, 3], [3, 4, 3]])
-    matrix_B = np.array([[1, 2], [3, 4], [5, 6]])
-
-    # Perform matrix multiplication using numpy.dot
-    result_dot = np.dot(matrix_A, matrix_B)
-
-    # Perform matrix multiplication using @ operator
-    result_operator = matrix_A @ matrix_B
-
-    # Display the results
-    print("Matrix A:")
-    print(matrix_A)
-
-    print("\nMatrix B:")
-    print(matrix_B)
-
-    print("\nResult using numpy.dot:")
-    print(result_dot)
-
-    print("\nResult using @ operator:")
-    print(result_operator)
 
 
 ai = CantDoAI()
