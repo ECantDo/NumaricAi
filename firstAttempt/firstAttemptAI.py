@@ -5,16 +5,20 @@ import basicFunctions
 
 
 class CantDoAI:
-    def __init__(self, learning_step_size: float = 0.05):
+    biases_file_name = "biases.cfg"
+    weights_file_name = "weights.cfg"
+
+    def __init__(self, learning_step_size: float = 0.1):
         self.learning_step_size = learning_step_size
 
-        self.__biases = CantDoAI.__get_values("biases.cfg")
-        self.__weights = CantDoAI.__get_values("weights.cfg")
+        self.__biases = CantDoAI.__get_values(self.biases_file_name)
+        self.__weights = CantDoAI.__get_values(self.weights_file_name)
         self.__layers = [[0] * len(self.__weights[0][0])]
         for bias_layer in self.__biases:
             self.__layers.append([0] * len(bias_layer))
 
-        self.__weights_cost = [[[0 for elem in row] for row in layer] for layer in self.__weights]
+        # self.__weights_cost = [[[0 for elem in row] for row in layer] for layer in self.__weights]
+        self.__layer_costs = list(self.__layers[1:])
         pass
 
     @staticmethod
@@ -74,17 +78,41 @@ class CantDoAI:
             self.multiply_layer(layer)
         pass
 
-    def learn(self, cost_map: list):
-        gradient = list(map(basicFunctions.sigmoid_derivative, cost_map))
-        print(gradient)
-        print(self.__weights_cost)
+    def __learn(self, cost_map: list):
+        # print(self.__weights)
+        self.__layer_costs[-1] = list(cost_map)
+
+        # COMPUTE ERRORS
+        for i in range(len(self.__layer_costs) - 1, 0, -1):
+            # gradient = list(map(basicFunctions.sigmoid_derivative, self.__layer_costs[i]))
+            # print(self.__weights[i - 1])
+            # print(gradient)
+            dot = np.dot(self.__weights[i - 1], self.__layer_costs[i])
+            # print(dot)
+            self.__layer_costs[i - 1] = dot
+
+        for i in range(len(self.__weights) - 1, -1, -1):
+            gradient = np.multiply(list(map(basicFunctions.sigmoid_derivative, self.__layer_costs[i])),
+                                   self.learning_step_size).tolist()
+
+            self.__weights[i] = np.subtract(self.__weights[i], np.outer(gradient, self.__layers[i])).tolist()
+
+        # print(self.__weights)
+        # print(self.__layer_costs)
+        # gradient = [np.multiply(list(map(basicFunctions.sigmoid_derivative, sub_lst)), self.learning_step_size)
+        #             for sub_lst in self.__layer_costs]
+        # print(gradient)
+        pass
+
+    def save_weights(self):
+        open(self.weights_file_name, 'w').write(str(self.__weights))
         pass
 
     def get_thought_index(self):
         return np.argmax(np.array(self.get_output()))
         pass
 
-    def think(self, input_values: list) -> list:  # EXPAND ON THIS MORE
+    def think(self, input_values: list, learning: bool = True):  # EXPAND ON THIS MORE
         """
         Makes the AI think about a series of inputs, then contemplates how well it did in regard to its thinking. It
         then changes how it thinks based on its contemplations.
@@ -96,9 +124,16 @@ class CantDoAI:
         self.set_intput(input_values[1:])
         self.multiply()
 
-        if self.get_thought_index() != input_values[0] or True:
+        if learning and self.get_thought_index() != input_values[0]:
             cost = (list((lambda idx, x: (x - (1 if input_values[0] == idx else 0)) ** 2)(idx, x) for idx, x in
                          enumerate(self.get_output())))
-            self.learn(cost)
-
+            self.__learn(cost)
+            return True
         pass
+
+
+# To run the program from this file
+if __name__ == "__main__":
+    import aiWrapper
+
+    aiWrapper.small_main()

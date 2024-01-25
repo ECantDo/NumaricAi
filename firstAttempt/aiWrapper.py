@@ -1,3 +1,5 @@
+import math
+
 import getNumbers
 import firstAttemptAI
 import numpy as np
@@ -39,20 +41,42 @@ def main():
 
 
 def small_main():
+    print("LOADING FILE.....")
     tester_dataset = two_two_data_set()
-    small_ai = firstAttemptAI.CantDoAI()
+    print("FILE LOADED")
+    small_ai = firstAttemptAI.CantDoAI(1)
 
-    small_ai.think(tester_dataset[0])
-    print(small_ai.print_bwl())
+    # small_ai.think(tester_dataset[1])
+    # # print(small_ai.print_bwl())
+    #
+    # exit(0)
+    for i in range(5):
+        correct = 0
+        last_percent = 0
+        for idx, data in enumerate(tester_dataset):
+            wrong = small_ai.think(data)
 
-    exit(0)
-    for data in tester_dataset:
-        small_ai.think(data)
-        # print(data)
-        # print(small_ai.think(data), end="\n\n")
-        print(f"{small_ai.get_output()}\t|| {data[0]} || {small_ai.get_thought_index()}")
-
+            percent = idx / len(tester_dataset) * 100
+            if percent >= last_percent + 1:
+                last_percent = math.floor(percent)
+                print(f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%", end="")
+            if not wrong:
+                correct += 1
+            # print(data)
+            # print(small_ai.think(data), end="\n\n")
+            # print(f"{small_ai.get_output()}\t|| {data[0]} || {small_ai.get_thought_index()}")
+        small_ai.save_weights()
+        print(f"\r100% Complete\tCorrect:  {correct / len(tester_dataset) * 100}%\n")
     pass
 
 
+def test_small_ai():
+    small_ai = firstAttemptAI.CantDoAI()
+    small_ai.think([0, 0.8, 0.0833], False)
+
+    print(small_ai.get_output())
+    pass
+
+
+# test_small_ai()
 small_main()
