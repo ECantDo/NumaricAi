@@ -53,6 +53,6 @@ def reset(layer_widths: list, r: int = 4, seed: int = 0):
 
 
 if __name__ == "__main__":
-    reset([784, 64, 64, 16, 11], 32)
+    reset([784, 64, 64, 64, 11], 32)
     # reset([2, 2, 2], 2)
     pass
