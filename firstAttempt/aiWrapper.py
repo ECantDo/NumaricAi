@@ -1,6 +1,7 @@
 import getNumbers
 import firstAttemptAI
 import numpy as np
+import ast
 
 output_names = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Nan")
 
@@ -19,6 +20,11 @@ def format_output(output_data: list):
     pass
 
 
+def two_two_data_set():
+    return ast.literal_eval(open("2x2AiInputs.txt", 'r').read())
+    pass
+
+
 def main():
     small_tester_data_set = getNumbers.MnistDataContainer("mnist_train - Copy.csv")
     ai = firstAttemptAI.CantDoAI()
@@ -32,4 +38,21 @@ def main():
     pass
 
 
-main()
+def small_main():
+    tester_dataset = two_two_data_set()
+    small_ai = firstAttemptAI.CantDoAI()
+
+    small_ai.think(tester_dataset[0])
+    print(small_ai.print_bwl())
+
+    exit(0)
+    for data in tester_dataset:
+        small_ai.think(data)
+        # print(data)
+        # print(small_ai.think(data), end="\n\n")
+        print(f"{small_ai.get_output()}\t|| {data[0]} || {small_ai.get_thought_index()}")
+
+    pass
+
+
+small_main()
