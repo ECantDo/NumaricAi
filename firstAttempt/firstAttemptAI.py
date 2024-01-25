@@ -81,14 +81,14 @@ class CantDoAI:
     def __learn(self, cost_map: list):
         # print(self.__weights)
         self.__layer_costs[-1] = list(cost_map)
-
         # COMPUTE ERRORS
         for i in range(len(self.__layer_costs) - 1, 0, -1):
-            # gradient = list(map(basicFunctions.sigmoid_derivative, self.__layer_costs[i]))
-            # print(self.__weights[i - 1])
-            # print(gradient)
-            dot = np.dot(self.__weights[i - 1], self.__layer_costs[i])
+            # print(i)
+            # print(self.__weights)
+            # print(self.__layer_costs)
+            dot = np.dot(self.__layer_costs[i], self.__weights[i])
             # print(dot)
+            # exit(-1)
             self.__layer_costs[i - 1] = dot
 
         for i in range(len(self.__weights) - 1, -1, -1):
@@ -97,11 +97,6 @@ class CantDoAI:
 
             self.__weights[i] = np.subtract(self.__weights[i], np.outer(gradient, self.__layers[i])).tolist()
 
-        # print(self.__weights)
-        # print(self.__layer_costs)
-        # gradient = [np.multiply(list(map(basicFunctions.sigmoid_derivative, sub_lst)), self.learning_step_size)
-        #             for sub_lst in self.__layer_costs]
-        # print(gradient)
         pass
 
     def save_weights(self):
@@ -130,10 +125,3 @@ class CantDoAI:
             self.__learn(cost)
             return True
         pass
-
-
-# To run the program from this file
-if __name__ == "__main__":
-    import aiWrapper
-
-    aiWrapper.small_main()

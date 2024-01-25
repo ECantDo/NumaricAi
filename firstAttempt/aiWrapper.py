@@ -28,14 +28,26 @@ def two_two_data_set():
 
 
 def main():
-    small_tester_data_set = getNumbers.MnistDataContainer("mnist_train - Copy.csv")
-    ai = firstAttemptAI.CantDoAI()
+    print("LOADING FILE.....")
+    data_set = getNumbers.MnistDataContainer("mnist_train.csv")
+    ai = firstAttemptAI.CantDoAI(learning_step_size=100)
 
-    values = small_tester_data_set.get_numberf(1)
-    print(ai.think(values))
-    print(ai.get_output())
+    for i in range(1):  # Generations
+        correct = 0
+        last_percent = 0
+        for idx in range(data_set.size()):
+            data = data_set.get_number(idx)
+            wrong = ai.think(data)
 
-    small_tester_data_set.make_image(small_tester_data_set.get_number(1))
+            percent = idx / data_set.size() * 100
+            if percent >= last_percent + 1:
+                last_percent = math.floor(percent)
+                print(f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%", end="")
+            if not wrong:
+                correct += 1
+
+        ai.save_weights()
+        print(f"\r100% Complete\tCorrect:  {correct / data_set.size() * 100}%\n")
 
     pass
 
@@ -46,10 +58,6 @@ def small_main():
     print("FILE LOADED")
     small_ai = firstAttemptAI.CantDoAI(1)
 
-    # small_ai.think(tester_dataset[1])
-    # # print(small_ai.print_bwl())
-    #
-    # exit(0)
     for i in range(5):
         correct = 0
         last_percent = 0
@@ -62,9 +70,7 @@ def small_main():
                 print(f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%", end="")
             if not wrong:
                 correct += 1
-            # print(data)
-            # print(small_ai.think(data), end="\n\n")
-            # print(f"{small_ai.get_output()}\t|| {data[0]} || {small_ai.get_thought_index()}")
+
         small_ai.save_weights()
         print(f"\r100% Complete\tCorrect:  {correct / len(tester_dataset) * 100}%\n")
     pass
@@ -79,4 +85,5 @@ def test_small_ai():
 
 
 # test_small_ai()
-small_main()
+# small_main()
+main()
