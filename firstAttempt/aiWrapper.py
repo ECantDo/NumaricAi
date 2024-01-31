@@ -1,4 +1,5 @@
 import math
+import time
 
 import getNumbers
 import firstAttemptAI
@@ -30,24 +31,29 @@ def two_two_data_set():
 def main():
     print("LOADING FILE.....")
     data_set = getNumbers.MnistDataContainer("mnist_train.csv")
-    ai = firstAttemptAI.CantDoAI(learning_step_size=100)
+    ai = firstAttemptAI.CantDoAI(learning_step_size=0.1)
 
     for i in range(1):  # Generations
         correct = 0
         last_percent = 0
+        start_time = time.time_ns()
         for idx in range(data_set.size()):
-            data = data_set.get_number(idx)
+            data = data_set.get_numberf(idx)
             wrong = ai.think(data)
 
             percent = idx / data_set.size() * 100
             if percent >= last_percent + 1:
                 last_percent = math.floor(percent)
-                print(f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%", end="")
+                print(
+                    f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%\tTime: {(time.time_ns() - start_time) * 1e-9} Seconds",
+                    end="")
+                if percent > 15:
+                    break
             if not wrong:
                 correct += 1
-
+        print(
+            f"\r100% Complete\tCorrect:  {correct / data_set.size() * 100}%\tTime: {(time.time_ns() - start_time) * 1e-9} Seconds\n")
         ai.save_weights()
-        print(f"\r100% Complete\tCorrect:  {correct / data_set.size() * 100}%\n")
 
     pass
 
@@ -56,20 +62,19 @@ def small_main():
     print("LOADING FILE.....")
     tester_dataset = two_two_data_set()
     print("FILE LOADED")
-    small_ai = firstAttemptAI.CantDoAI(1)
+    small_ai = firstAttemptAI.CantDoAI(0.001)
 
     for i in range(5):
         correct = 0
         last_percent = 0
         for idx, data in enumerate(tester_dataset):
             wrong = small_ai.think(data)
-
+            if not wrong:
+                correct += 1
             percent = idx / len(tester_dataset) * 100
             if percent >= last_percent + 1:
                 last_percent = math.floor(percent)
                 print(f"\r{last_percent}% Complete\tCorrect: {correct / idx * 100}%", end="")
-            if not wrong:
-                correct += 1
 
         small_ai.save_weights()
         print(f"\r100% Complete\tCorrect:  {correct / len(tester_dataset) * 100}%\n")
@@ -78,12 +83,13 @@ def small_main():
 
 def test_small_ai():
     small_ai = firstAttemptAI.CantDoAI()
-    small_ai.think([0, 0.8, 0.0833], False)
+    small_ai.think([1, 0.25, 0.5], True)
+    small_ai.save_weights()
 
-    print(small_ai.get_output())
+    print(f"\n\nOutput: {small_ai.get_output()}")
     pass
 
 
-# test_small_ai()
 # small_main()
-main()
+test_small_ai()
+# main()

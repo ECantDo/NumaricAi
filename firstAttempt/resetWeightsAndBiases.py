@@ -37,7 +37,7 @@ def reset_weights(layer_widths: list, r: int, seed: int = None):
     for layer in range(len(layer_widths) - 1):
         weights.append([])
         for layer_width in range(layer_widths[layer + 1]):
-            weights[layer].append([random.randrange(-r, r) for i in range(layer_widths[layer])])
+            weights[layer].append([random.uniform(-r, r) for i in range(layer_widths[layer])])
             pass
         pass
 
@@ -53,6 +53,6 @@ def reset(layer_widths: list, r: int = 4, seed: int = 0):
 
 
 if __name__ == "__main__":
-    reset([784, 64, 64, 64, 11], 32)
+    reset([2, 3, 3, 2], 2)
     # reset([2, 2, 2], 2)
     pass
