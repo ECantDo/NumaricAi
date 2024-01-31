@@ -24,14 +24,14 @@ def activation_derivative(x):
     pass
 
 
-def slope(activation: float, expected_activation: float):
-    return 2 * (activation - expected_activation)
+def cost_derivative(node_activation: float, expected_activation: float):
+    return 2 * (node_activation - expected_activation)
     pass
 
 
-def node_cost(activation: float, expected_activation: float):
+def node_cost(node_activation: float, expected_activation: float):
     # cost = (a - y)^2
-    return (activation - expected_activation) ** 2
+    return (node_activation - expected_activation) ** 2
     pass
 
 
@@ -41,6 +41,6 @@ if __name__ == "__main__":
     # print(sigmoid(operations).tolist())
     # print(sigmoid_derivative(operations).tolist())
 
-    output = [1, 1, 1, 1, 1, 1, 1]
-    correct_idx = 1
+    # output = [1, 1, 1, 1, 1, 1, 1]
+    # correct_idx = 1
     pass
