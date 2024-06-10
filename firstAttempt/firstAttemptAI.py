@@ -122,7 +122,25 @@ class CantDoAI:
             # gradient = (list((lambda idx, x: (x - (1 if input_values[0] == idx else 0)) * 2)(idx, x) for idx, x in
             #              enumerate(self.get_output())))
             self.__learn(self.get_output())
+            pass
 
         if self.get_thought_index() != input_values[0]:
             return True
+
+    def update_weights(self, step_size: float, expected_output_index: int):
+        costs = basicFunctions.output_cost(self.get_output(), expected_output_index)
+        print(f"{costs = }")
+        total_cost = sum(costs)
+        print(f"{total_cost = }")
+
+        gradiant = basicFunctions.output_cost_derivative(costs, expected_output_index)
+        print(f"{gradiant = }")
+
+        weight = []
+        for idx, cost in enumerate(costs):
+            weight.append(cost * gradiant[idx] )
+        print(self.__weights[-1])
+        print(f"change {weight = }")
+        pass
+
         pass

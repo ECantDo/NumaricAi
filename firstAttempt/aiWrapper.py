@@ -1,6 +1,7 @@
 import math
 import time
 
+import basicFunctions
 import getNumbers
 import firstAttemptAI
 import numpy as np
@@ -82,13 +83,22 @@ def small_main():
 
 
 def test_small_ai():
-    small_ai = firstAttemptAI.CantDoAI()
-    small_ai.think([1, 0.25, 0.5], True)
-    small_ai.save_weights()
+    small_ai: firstAttemptAI.CantDoAI = firstAttemptAI.CantDoAI()
+    # small_ai.print_bwl()
+    input_values = [1, 1, 1]
+    step_size = 1
 
-    print(f"\n\nOutput: {small_ai.get_output()}")
-    pass
+    small_ai.think(input_values, False)
+    small_ai.print_bwl()
+    # small_ai.save_weights()
 
+    ai_output = small_ai.get_output()
+    print(f"\n\nOutput: {ai_output}")
+
+    small_ai.update_weights(step_size, input_values[0])
+
+
+pass
 
 # small_main()
 test_small_ai()

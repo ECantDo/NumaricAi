@@ -11,14 +11,11 @@ class CantDoAI:
     def __init__(self, learning_step_size: float = 0.1):
         self.learning_step_size = learning_step_size
 
+        # This AI's biases are all 0 - trying to do it without biases first
         self.__biases = CantDoAI.__get_values(self.biases_file_name)
         self.__weights = CantDoAI.__get_values(self.weights_file_name)
         self.__layers = [[0] * len(self.__weights[0][0])]
-        for bias_layer in self.__biases:
-            self.__layers.append([0] * len(bias_layer))
 
-        # self.__weights_cost = [[[0 for elem in row] for row in layer] for layer in self.__weights]
-        self.__layer_costs = list(self.__layers[1:])
         pass
 
     @staticmethod
@@ -97,16 +94,30 @@ class CantDoAI:
         return np.argmax(np.array(self.get_output()))
         pass
 
-    def think(self, input_values: list):  # EXPAND ON THIS MORE
+    def calculate_outputs(self, input_values: list):  # EXPAND ON THIS MORE
         """
         Makes the AI think about a series of inputs, then contemplates how well it did in regard to its thinking. It
         then changes how it thinks based on its contemplations.
         :param input_values: Expects a list of input values, with the first input value being the index of the
         expected result
-        :return:
+        :return: Returns the outputs
         """
-
         self.set_intput(input_values[1:])
         self.multiply_all()
+        return self.get_output()
+        pass
+
+    ##########################
+    # learning stuff goes here
+    ##########################
+    def learn(self, expected_outputs: list):
+        # TODO: Implement
+        outputs = self.get_output()
+        output_node_value = []
+        pass
+
+    def update_weights(self, step_size: float):
 
         pass
+
+    pass
