@@ -171,3 +171,33 @@ def test_values_after_update5():
     assert ai.weights == []
     assert ai.biases == [0, 0, 0, 0, 0]
     assert ai.links == [4, 0, 4, 2, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+
+
+def test_get_trailing_nodes1():
+    weights = []  # Can be empty, nothing done with these values when getting update order
+    biases = [0]
+    links = []
+
+    ai = CantDoAi(weights, biases, links)
+
+    assert ai.get_trailing_nodes() == [0]
+
+
+def test_get_trailing_nodes2():
+    weights = []  # Can be empty, nothing done with these values when getting update order
+    biases = [0, 1]
+    links = [0, 1]
+
+    ai = CantDoAi(weights, biases, links)
+
+    assert ai.get_trailing_nodes() == [1]
+
+
+def test_get_trailing_nodes3():
+    weights = []  # Can be empty, nothing done with these values when getting update order
+    biases = [0, 1, 2, 3, 4]
+    links = [4, 2, 4, 3, 4, 0, 3, 0, 2, 0, 0, 1]
+
+    ai = CantDoAi(weights, biases, links)
+
+    assert ai.get_trailing_nodes() == [1]

@@ -31,8 +31,6 @@ class CantDoAi:
             # If not, initialize them
             self.update_input_nodes()
 
-        # Get a copy of the input nodes and edges, to be safe from overwriting them
-        # TODO: Look into if an extra copy is needed
         edgeless = list(self.input_nodes)  # Needs to be a copy; otherwise data will be lost
         edges = self.links  # Doesn't need to be a copy; the point is changed, not the data
         while len(edgeless) > 0:
@@ -64,6 +62,20 @@ class CantDoAi:
         for v in exclude_input_nodes:
             input_nodes[v] = False
         return [i for i, x in enumerate(input_nodes) if x]
+
+    def get_trailing_nodes(self, edges: list[int] = None) -> list[int]:
+        """
+        Returns the trailing nodes of the AI
+        :param edges: A custom list of edges
+        :return: The trailing nodes of the AI
+        """
+        if edges is None:
+            edges = self.links
+        has_outgoing_connection = [False] * len(self.biases)
+        for i in range(0, len(edges), 2):
+            has_outgoing_connection[edges[i]] = True
+        return [idx for idx, cnnts in enumerate(has_outgoing_connection) if not cnnts]
+        pass
 
     def find_outgoing_links(self, node: int, edges: list[int] = None) -> list[int]:
         """
