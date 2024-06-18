@@ -33,24 +33,15 @@ class CantDoAi:
 
         # Get a copy of the input nodes and edges, to be safe from overwriting them
         # TODO: Look into if an extra copy is needed
-        edgeless = list(self.input_nodes)
-        edges = list(self.links)
+        edgeless = list(self.input_nodes)  # Needs to be a copy; otherwise data will be lost
+        edges = self.links  # Doesn't need to be a copy; the point is changed, not the data
         while len(edgeless) > 0:
-            new_edges = []
             while len(edgeless) > 0:
                 node = edgeless[0]
                 edgeless = edgeless[1:]
                 order.append(node)
 
-                # print(f"{node = } | ", end="")
-
-                for i in range(0, len(edges), 2):
-                    if edges[i] != node:
-                        new_edges.append(edges[i])
-                        new_edges.append(edges[i + 1])
-
-                edges = new_edges
-                new_edges = []
+                edges = self.get_subgraph(node, edges)
 
             edgeless = self.get_leading_nodes(edges, order)
 
@@ -73,6 +64,36 @@ class CantDoAi:
         for v in exclude_input_nodes:
             input_nodes[v] = False
         return [i for i, x in enumerate(input_nodes) if x]
+
+    def find_outgoing_links(self, node: int, edges: list[int] = None) -> list[int]:
+        """
+        Returns the indexes of the outgoing links of a given node
+        :param node: The node to find the outgoing links of
+        :param edges: Use this to specify a custom list of edges
+        :return:
+        """
+        if edges is None:
+            edges = self.links
+        return [i for i, x in enumerate(edges) if x == node and i % 2 == 0]
+        pass
+
+    def get_subgraph(self, node: int, edges: list[int] = None) -> list[int]:
+        """
+        Returns the subgraph of the AI, with the given nodes removed
+        :param node: The node that is not in the subgraph
+        :param edges: Use this to specify a custom list of edges
+        :return: The edges of the subgraph
+        """
+        if edges is None:
+            edges = self.links
+
+        new_edges = []
+        for i in range(0, len(edges), 2):
+            if edges[i] != node:
+                new_edges.append(edges[i])
+                new_edges.append(edges[i + 1])
+        return new_edges
+        pass
 
     def update_input_nodes(self):
         """
