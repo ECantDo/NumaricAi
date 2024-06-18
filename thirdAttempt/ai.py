@@ -11,7 +11,9 @@ class CantDoAi:
         self.links = links  # [0, 2, 0, 3, 1, 2, 1, 3, 2, 5, 3, 5, 3, 4, 5, 4]
 
         # Input nodes are just nodes that don't have any inputs; so they are the nodes that receive the inputs
-        self.input_nodes = None
+        self.input_nodes = self.get_leading_nodes(None, [])
+        self.output_nodes = self.get_trailing_nodes(None)
+        # Any nodes that are added have to be inbetween the input nodes and the output nodes
         self.update_order = self.get_update_order()
         pass
 
@@ -48,7 +50,7 @@ class CantDoAi:
 
     def get_leading_nodes(self, edges: list[int] = None, exclude_input_nodes: list[int] = ()) -> list[int]:
         """
-        Returns the leading nodes of the AI
+        Returns the leading nodes of the AI; i.e. the nodes that have no incoming links
         :param edges: Use this to specify a custom list of edges
         :param exclude_input_nodes: Use this to remove nodes from the leading nodes; needs the custom list of edges to
         work properly
@@ -65,7 +67,7 @@ class CantDoAi:
 
     def get_trailing_nodes(self, edges: list[int] = None) -> list[int]:
         """
-        Returns the trailing nodes of the AI
+        Returns the trailing nodes of the AI; i.e. the nodes that have no outgoing links
         :param edges: A custom list of edges
         :return: The trailing nodes of the AI
         """
