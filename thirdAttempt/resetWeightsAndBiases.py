@@ -18,8 +18,10 @@ def reset_network(input_node_count: int, output_node_count: int, seed: int = 0) 
 
 
 def main():
-    weights, biases, links = reset_network(2, 3)
-    # print(reset_network(3, 2))
+    # There needs to be 6 inputs; tile type in front of the agent (sight), x and y of the goal, x and y of the agent,
+    # and the direction the agent is facing.
+    # There needs to be 4 outputs; turn left, turn right, move forward, do nothing.
+    weights, biases, links = reset_network(6, 4)
     with open("wbe.cfg", "w") as f:
         f.write(f"{weights}\n")
         f.write(f"{biases}\n")
