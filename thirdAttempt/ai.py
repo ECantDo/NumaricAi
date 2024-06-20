@@ -127,7 +127,52 @@ class CantDoAi:
         :param input_values: Inputs to the AI (floats)
         :return: Output of the AI (floats)
         """
-        return None
+        values = input_values + [0] * (len(self.biases) - len(input_values))
+        for node in self.update_order:
+            outgoing_links = self.find_outgoing_links(node)
+            updated_nodes = set()
+            for idx in outgoing_links:
+                # TODO: Check if this works
+                other_node = self.links[idx + 1]
+                updated_nodes.add(other_node)
+                weight = self.weights[self.weights.index((node, other_node)) + 1]
+                values[other_node] += values[node] * self.weights[weight] + self.biases[other_node]
+
+            for updated_node in updated_nodes:
+                values[updated_node] = ActivationFunctions.relu(values[updated_node])
+            pass
+        return values
+
+
+# ======================================================================================================================
+# CLASS: ACTIVATION FUNCTIONS
+# ======================================================================================================================
+class ActivationFunctions:
+    """
+    This class contains the math functions used by the AI
+    """
+
+    @staticmethod
+    def sigmoid(x: float) -> float:
+        return 1 / (1 + np.exp(-x))
+
+    @staticmethod
+    def tanh(x: float) -> float:
+        """
+        Basically the same as the sigmoid function, just it maps between -1 and 1
+        :param x:
+        :return:
+        """
+        return np.tanh(x)
+
+    @staticmethod
+    def relu(x: float) -> float:
+        return np.max(x, 0)
+
+    @staticmethod
+    def step(x: float) -> float:
+        return 1 if x > 0 else 0
+    pass
 
 
 if __name__ == "__main__":
