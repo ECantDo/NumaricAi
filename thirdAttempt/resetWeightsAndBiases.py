@@ -9,11 +9,11 @@ def reset_network(input_node_count: int, output_node_count: int, seed: int = 0) 
 
     for i in range(input_node_count):
         for j in range(output_node_count):
-            weights.append((i, j + input_node_count))
+            # weights.append((i, j + input_node_count))
             weights.append(random.random() * 2 - 1)
             # weights.append(1)
-            links.append(i)
-            links.append(j + input_node_count)
+            links.append((i, j + input_node_count))
+            # links.append(j + input_node_count)
 
     return weights, biases, links
     pass

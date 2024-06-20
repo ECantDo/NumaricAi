@@ -17,7 +17,7 @@ def test_init():
 def test_get_leading_nodes1():
     weights = []  # Can be empty, nothing done with these values when getting leading nodes
     biases = [0, 1, 2, 3, 4, 5]
-    links = [0, 2, 0, 3, 1, 2, 1, 3, 2, 5, 3, 5, 3, 4, 5, 4]
+    links = [(0, 2), (0, 3), (1, 2), (1, 3), (2, 5), (3, 5), (3, 4), (5, 4)]
 
     ai = CantDoAi(weights, biases, links)
     assert ai.get_leading_nodes() == [0, 1]
@@ -26,7 +26,7 @@ def test_get_leading_nodes1():
 def test_get_leading_nodes2():
     weights = []  # Can be empty, nothing done with these values when getting leading nodes
     biases = [0, 1, 2, 3, 4]
-    links = [4, 0, 4, 2, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+    links = [(4, 0), (4, 2), (4, 3), (4, 1), (3, 0), (2, 0), (0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -36,7 +36,7 @@ def test_get_leading_nodes2():
 def test_get_leading_nodes3():
     weights = []  # Can be empty, nothing done with these values when getting leading nodes
     biases = [0, 1, 2, 3, 4]
-    links = [4, 0, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+    links = [(4, 0), (4, 3), (4, 1), (3, 0), (2, 0), (0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -46,7 +46,7 @@ def test_get_leading_nodes3():
 def test_find_outgoing_links1():
     weights = []  # Can be empty, nothing done with these values when getting outgoing links
     biases = [0, 1, 2, 3, 4]
-    links = [4, 0]
+    links = [(4, 0)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -56,7 +56,7 @@ def test_find_outgoing_links1():
 def test_find_outgoing_links2():
     weights = []  # Can be empty, nothing done with these values when getting outgoing links
     biases = [0, 1, 2, 3, 4]
-    links = [4, 0, 4, 1, 4, 2, 4, 3]
+    links = [(4, 0), (4, 1), (4, 2), (4, 3)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -76,7 +76,7 @@ def test_update_order1():
 def test_update_order2():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0]
-    links = [0, 1]
+    links = [(0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -86,7 +86,7 @@ def test_update_order2():
 def test_update_order3():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [0, 4, 1, 4, 2, 4, 3, 4]
+    links = [(0, 4), (1, 4), (2, 4), (3, 4)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -96,7 +96,7 @@ def test_update_order3():
 def test_update_order4():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [4, 0, 4, 2, 4, 3, 4, 1]
+    links = [(4, 0), (4, 2), (4, 3), (4, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -106,7 +106,7 @@ def test_update_order4():
 def test_update_order5():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [4, 0, 4, 2, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+    links = [(4, 0), (4, 2), (4, 3), (4, 1), (3, 0), (2, 0), (0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -134,43 +134,43 @@ def test_values_after_update2():
 
     assert ai.weights == []
     assert ai.biases == [0, 0]
-    assert ai.links == [0, 1]
+    assert ai.links == [(0, 1)]
 
 
 def test_values_after_update3():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [0, 4, 1, 4, 2, 4, 3, 4]
+    links = [(0, 4), (1, 4), (2, 4), (3, 4)]
 
     ai = CantDoAi(weights, biases, links)
 
     assert ai.weights == []
     assert ai.biases == [0, 0, 0, 0, 0]
-    assert ai.links == [0, 4, 1, 4, 2, 4, 3, 4]
+    assert ai.links == [(0, 4), (1, 4), (2, 4), (3, 4)]
 
 
 def test_values_after_update4():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [4, 0, 4, 2, 4, 3, 4, 1]
+    links = [(4, 0), (4, 2), (4, 3), (4, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
     assert ai.weights == []
     assert ai.biases == [0, 0, 0, 0, 0]
-    assert ai.links == [4, 0, 4, 2, 4, 3, 4, 1]
+    assert ai.links == [(4, 0), (4, 2), (4, 3), (4, 1)]
 
 
 def test_values_after_update5():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0, 0, 0, 0]
-    links = [4, 0, 4, 2, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+    links = [(4, 0), (4, 2), (4, 3), (4, 1), (3, 0), (2, 0), (0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
     assert ai.weights == []
     assert ai.biases == [0, 0, 0, 0, 0]
-    assert ai.links == [4, 0, 4, 2, 4, 3, 4, 1, 3, 0, 2, 0, 0, 1]
+    assert ai.links == [(4, 0), (4, 2), (4, 3), (4, 1), (3, 0), (2, 0), (0, 1)]
 
 
 def test_get_trailing_nodes1():
@@ -186,7 +186,7 @@ def test_get_trailing_nodes1():
 def test_get_trailing_nodes2():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 1]
-    links = [0, 1]
+    links = [(0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
@@ -196,7 +196,7 @@ def test_get_trailing_nodes2():
 def test_get_trailing_nodes3():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 1, 2, 3, 4]
-    links = [4, 2, 4, 3, 4, 0, 3, 0, 2, 0, 0, 1]
+    links = [(4, 2), (4, 3), (4, 0), (3, 0), (2, 0), (0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
