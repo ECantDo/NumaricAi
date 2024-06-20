@@ -60,7 +60,7 @@ def test_find_outgoing_links2():
 
     ai = CantDoAi(weights, biases, links)
 
-    assert ai.find_outgoing_links(4) == [0, 2, 4, 6]
+    assert ai.find_outgoing_links(4) == [0, 1, 2, 3]
 
 
 def test_update_order1():
@@ -128,7 +128,7 @@ def test_values_after_update1():
 def test_values_after_update2():
     weights = []  # Can be empty, nothing done with these values when getting update order
     biases = [0, 0]
-    links = [0, 1]
+    links = [(0, 1)]
 
     ai = CantDoAi(weights, biases, links)
 
