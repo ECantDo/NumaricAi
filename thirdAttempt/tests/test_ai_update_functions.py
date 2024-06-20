@@ -4,7 +4,7 @@ from thirdAttempt.ai import CantDoAi
 def test_init():
     weights = [1, 2, 2, 1, 0, 1]
     biases = [0] * len(weights)
-    links = [0, 2, 0, 3, 1, 2, 1, 3, 2, 5, 3, 5, 3, 4, 5, 4]
+    links = [(0, 2), (0, 3), (1, 2), (1, 3), (2, 5), (3, 5), (3, 4), (5, 4)]
 
     ai = CantDoAi(weights, biases, links)
 
