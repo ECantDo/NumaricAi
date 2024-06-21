@@ -3,7 +3,7 @@ import numpy as np
 
 class CantDoAi:
 
-    def __init__(self, weights: list[int], biases: list[int], links: list[tuple[int, int]]):
+    def __init__(self, weights: list[float], biases: list[float], links: list[tuple[int, int]]):
         # One weight for every 2 links
         self.weights = weights  # [1, 2, 2, 1, 0, 1]
         # 1 bias for each node
