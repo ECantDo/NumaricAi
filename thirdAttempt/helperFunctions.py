@@ -1,6 +1,8 @@
 # ======================================================================================================================
 # SEARCH FUNCTIONS
 # ======================================================================================================================
+from thirdAttempt.ai import CantDoAi
+
 
 def binary_search_tuples(lst: list[tuple], key: int, tuple_index: int = 0) -> int:
     """
@@ -36,6 +38,32 @@ def tuple_search(lst: list[tuple], key: int, tuple_index: int = 0) -> int:
         if key == lst[i][tuple_index]:
             return i
     return -1
+
+
+def get_outgoing_nodes(network: CantDoAi) -> list[int]:
+    """
+    Returns the nodes that can have an outgoing link
+    :param network:
+    :return:
+    """
+    nodes = set()
+    for i in range(len(network.biases)):
+        if i not in network.output_nodes:
+            nodes.add(i)
+    return list(nodes)
+
+
+def get_incoming_nodes(network: CantDoAi) -> list[int]:
+    """
+        Returns the nodes that can have an incoming link
+        :param network:
+        :return:
+        """
+    nodes = set()
+    for i in range(len(network.biases)):
+        if i not in network.input_nodes:
+            nodes.add(i)
+    return list(nodes)
 
 
 # ======================================================================================================================
